@@ -3,11 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react"
 import { View, StyleSheet, Text, TextInput, Pressable, Alert } from "react-native";
 import firestore from '@react-native-firebase/firestore'
-import HomeScreen from "../home/home";
-import { defaultColors, defaultTextColors } from "../../components/constants";
-import { userCollection } from "../../config/firebase";
-import auth from '@firebase/auth'
-import { EmailAuthCredential } from "@firebase/auth/web-extension";
+import {  defaultTextColors } from "../../components/constants";
+
+
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('')
@@ -17,41 +15,39 @@ export default function LoginScreen() {
 
     const handleLogin = async () => {
         setLoading(true)
-        try {
-           
-            await userCollection({
-                email:EmailAuthProvider,
-                password:password
-            })
-            await 
-            
-            if (email === '' || password === '') {
-                Alert.alert('fill in your details')
-            } else if (email === email && password=== password){
-                navigation.navigate('Home')
-                Alert.alert('signin successfull')
-            } else{
-                Alert.alert('sorry userdetail is incorrect')
+            // try {    
+            //     const userCollection = firestore().collection('users')
+            //     const querySnapshot = await userCollection
+            //         .where('email', '==', email)
+            //         .where('password', '==', password)
+            //         .get();
+            //     if (querySnapshot.empty) {
+            //         Alert.alert('Error', 'Invalid email or password');
+            //     } else {
+            //         Alert.alert('Success', 'Login successful');
+            //         navigation.navigate('Home');
+            //     }
+            // } catch (error) {
+            //     console.log(error, 'error looging in')
+            // }
+            try {
+                const userCollection= firestore().collection("users");
+                const cloneUsercollection = await userCollection
+                .where('email', '==', email)
+                .where('password', '==', password)
+                .get();
+                if(cloneUsercollection.empty){
+                    Alert.alert('invalid username or password')
+                }else {
+                    Alert.alert('login successful')
+                    navigation.navigate('Home')
+                }
+            } catch (error) {
+                Alert.alert('an error has occured')
             }
-        } catch (error) {
-            Alert.alert('an error has occured please check your code and try again', error) 
-        }finally{
-            setLoading(false)
-         }
 
 
-        // try {
-        //     if(email==='' || password===''){
-        //         Alert.alert('fill in your details')
-        //     } else if(email===email&& password===password){
-        //       Alert.alert('signin successfull')     
-        //         navigation.navigate('Home')
-        //     }
-        // } catch (error) {
-        //    Alert.alert('an error has occured please check your code and try again', error) 
-        // } finally{
-        //     setLoading(false)
-        // }
+       
     };
 
     const navigation = useNavigation()
