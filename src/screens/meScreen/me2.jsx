@@ -1,10 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import { ExclamationTriangleIcon } from "react-native-heroicons/outline"
 import { defaultColors } from "../../components/constants"
+import { useNavigation } from "@react-navigation/native"
 
 export default function Mecontainer2(){
+  const navigate = useNavigation()
   const containerInputs=[
-    {icon: <ExclamationTriangleIcon color={'red'} size={15}/>,text1:'7 Safety Tips', text2:'Make your account more secure', btn:"View"}
+    {icon: <ExclamationTriangleIcon color={'red'} size={15}/>,text1:'7 Safety Tips', text2:'Make your account more secure', btn:"View", link:"Home"}
   ] 
   const array=[]
     for(i=0; i<containerInputs.length;i++){
@@ -14,7 +16,7 @@ export default function Mecontainer2(){
         <View style={{backgroundColor:defaultColors.lightGreen,padding:10, width:'92%', alignSelf:'center', borderRadius:10, position:'relative', bottom:7}}>
           {array.map((detail)=>(
             <View style={{ flexDirection:'row', justifyContent:'space-evenly'}}>
-                <Pressable style={{alignSelf:'center'}}>
+                <Pressable onPress={()=> navigate.navigate(detail.link)} style={{alignSelf:'center'}}>
                     {detail.icon}
                 </Pressable>
                 <Pressable>

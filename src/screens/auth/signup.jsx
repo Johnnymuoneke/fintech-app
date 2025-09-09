@@ -1,27 +1,56 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react"
-import { View, StyleSheet, Text, TextInput, Pressable, Button } from "react-native";
+import { View, StyleSheet, Text, TextInput, Pressable, Button, Alert } from "react-native";
+// import { createUser, userCollection } from "../../config/firebase";
+import firestore from "@react-native-firebase/firestore"
 
 
 export default function SignUpScreen() {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+    const [phonenumber, setphonenumber] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const handleLogin = async () => {
 
+
+    const handleSignup = async () => {
+        setLoading(true)
+        try {
+            const userCollection = firestore().collection('users')
+            await userCollection.add({
+                username: name,
+                password: password,
+                phoneNumber: phonenumber,
+                email: email
+            })
+            Alert.alert("Success", "Sign up successful")
+            navigation.navigate('Login')
+
+
+        }
+        catch (e) {
+            Alert.alert("Error", e)
+            console.log(e)
+        } finally {
+            setLoading(false)
+        }
     };
 
-    const Navigation = useNavigation()
+    const navigation = useNavigation()
     const navigate = () => {
-        Navigation.navigate('Login')
+        navigation.navigate('Login')
     }
-
-
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Signup</Text>
+            <TextInput style={styles.input}
+                placeholder="Username"
+                value={name}
+                onChangeText={setName}
+                placeholderTextColor='#888'
+            />
             <TextInput style={styles.input}
                 placeholder="Email"
                 value={email}
@@ -32,20 +61,27 @@ export default function SignUpScreen() {
             />
 
             <TextInput style={styles.input}
+                placeholder="PhoneNumber"
+                value={phonenumber}
+                onChangeText={setphonenumber}
+                placeholderTextColor={'#888'}
+            />
+
+            <TextInput style={styles.input}
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
                 placeholderTextColor='#888'
             />
+
             <Pressable
-                style={styles.button}
+                style={[styles.button, loading && { opacity: 0.7 }]}
+                onPress={handleSignup}
             >
                 <Text style={styles.buttonText}>SignUp</Text>
             </Pressable>
 
-            { <Button  style={{backgroundColor:'none', flex:1}}
-            onPress={navigate} title="have an account"/> }
 
             <Pressable style={{ backgroundColor: 'none', alignItems: 'flex-end' }}
                 onPress={navigate}
@@ -54,6 +90,7 @@ export default function SignUpScreen() {
                     paddingTop: 20,
                     fontWeight: "900", fontSize: 21,
                     textDecorationLine: 'underline',
+                    color: "black"
                 }}>Log In?</Text>
             </Pressable>
 

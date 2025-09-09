@@ -31,16 +31,16 @@ export function NestedButtons() {
     }
 
     return (
-        <View style={{ backgroundColor: 'white', marginVertical: 5, borderRadius: 15 }}>
+        <View style={{ backgroundColor: 'white', marginVertical: 5, borderRadius: 15, marginTop: 9, }}>
             {rows.map((row, rowIndex) => (
-                <View key={rowIndex} style={{ flexDirection: 'row', marginTop: 10, padding: 10, justifyContent: 'space-evenly' }}>
-                   
+                <View key={rowIndex} style={{ flexDirection: 'row', marginTop: 10, padding: 4, justifyContent: 'space-evenly' }}>
+
                     {row.map((data, index) => (
                         <View key={index}>
-                            <Pressable style={{ borderRadius: 9999, backgroundColor: defaultColors.lighterGreen, padding: 10 }}>
+                            <Pressable style={{ borderRadius: 9999, backgroundColor: defaultColors.lighterGreen, padding: 8 }}>
                                 {data.icon}
                             </Pressable >
-                            <Text style={{ fontSize: 10, color: defaultTextColors.lightBlack, textAlign: 'center' }}>{data.name}</Text>
+                            <Text style={{ fontSize: 10, color: defaultTextColors.inactiveText, textAlign: 'center', padding: 2 }}>{data.name}</Text>
                         </View>
                     ))}
 

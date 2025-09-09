@@ -16,7 +16,7 @@ import { HomeIcon } from 'react-native-heroicons/outline'
 import { UserCircleIcon } from 'react-native-heroicons/outline'
 import { CreditCardIcon } from 'react-native-heroicons/outline'
 import { GiftIcon } from 'react-native-heroicons/outline'
-import { defaultColors } from "../../components/constants"
+import { defaultColors, defaultTextColors } from "../../components/constants"
 import { NestedButtons } from "../../components/buttons/navigationGroup"
 import { bottombtn } from "../rewards/bottomTab" 
 import { HeaderBtn } from "../rewards/bottomTab"
@@ -41,7 +41,7 @@ function HomeScreen() {
                 <SafeAreaView style={styles.tabs}>
 
 
-                    <Text style={styles.text}>Hi, John</Text>
+                    <Text style={[styles.text,{fontSize:13, fontWeight:'600', color:defaultColors.fancyBlack}]}>Hi, John</Text>
                 </SafeAreaView>
 
                 <View style={styles.tab2}>
@@ -85,7 +85,7 @@ function HomeScreen() {
                 </View>
 
                 <View style={styles.whole2}>
-                    <Text style={[styles.text, textstyle]}>12,000</Text>
+                    <Text style={{fontWeight:"700", fontSize:15.3, marginLeft:'3%', color:'#ffffff'}}>₦ 12,000 </Text>
                     <Pressable style={{ borderRadius: 50, padding: 9, backgroundColor: '#fff', }}>
                         <Text style={{ fontWeight: '400', color: defaultColors.lightGreen, fontSize:10 }}>+ Add Money</Text>
                     </Pressable>
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     text: {
         padding: 5,
         fontWeight: '400',
-        color: '#507561',
+        color: defaultTextColors.inactiveText,
         textAlign: "center",
         fontSize: 10
     },
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         borderRadius: 200
     },
     container2: {
-        backgroundColor: defaultColors.lightGreen,
+        backgroundColor: '#05A678',
         padding: 4,
         borderRadius: 10,
         marginTop: 15,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     whole2: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 5,
+        padding: 2,
         marginTop: 10,
 
     },
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         padding: 15,
         backgroundColor: '#fff',
-        marginTop: 15,
+        marginTop: 9,
         borderRadius: 10,
        
     },

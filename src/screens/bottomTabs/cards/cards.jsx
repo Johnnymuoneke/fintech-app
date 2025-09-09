@@ -30,29 +30,28 @@ export default function Card() {
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
-                initialLayout={{width:Dimensions.get('window').width}}
-                renderTabBar={props =>(
+                initialLayout={{ width: Dimensions.get('window').width }}
+                renderTabBar={props => (
                     <TabBar
                         {...props}
                         indicatorStyle={{
-                            backgroundColor:'black',
-                            height:2,
-                            borderRadius:2,
-                            marginHorizontal:75,
-                            width:30
+                            backgroundColor: 'black',
+                            height: 2,
+                            borderRadius: 2,
+                            marginHorizontal: 75,
+                            width: 30
                         }}
                         style={{
-                            backgroundColor:'white',
-                            elevation:0,
-                            shadowOpacity:0,
-                            borderBottomWidth:0
+                            backgroundColor: 'white',
+                            elevation: 0,
+                            shadowOpacity: 0,
+                            borderBottomWidth: 0
                         }}
-                        labelStyle={{color:'black', fontWeight:'700'}}
+                        labelStyle={{ color: 'black', fontWeight: '700' }}
                         activeColor="#009688"
                         inactiveColor="#4444"
                     />
                 )}
-                
             />
         </>
 
@@ -65,6 +64,6 @@ const styles = StyleSheet.create({
         padding: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor:'#ffffff'
+        backgroundColor: '#ffffff'
     }
 })

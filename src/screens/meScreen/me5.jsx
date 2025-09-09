@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import { HomeIcon } from "react-native-heroicons/outline"
 import { defaultColors, defaultTextColors } from "../../components/constants"
+import SignUpScreen from "../auth/signup"
 
 export default function MeContainer5() {
     const array = [
@@ -24,6 +25,12 @@ export default function MeContainer5() {
                     </Pressable>
                 </View>
             ))}
+         
+        
+            <Pressable onPress={SignUpScreen}>
+                <Text>logout</Text>
+            </Pressable>   
+       
         </View>
         
     )
