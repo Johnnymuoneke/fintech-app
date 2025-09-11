@@ -8,10 +8,10 @@ import MainRoute from "./src/router/mainRoutes";
 import firestore, { collection } from '@react-native-firebase/firestore'
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
+import { useSelector } from "react-redux";
 
 
 const Navigation = createNativeStackNavigator()
-
 
 
 function App() {
@@ -22,8 +22,10 @@ function App() {
       console.log(document.id, document.data())
     })
   )
+ 
   return (
     <Provider store={store}>
+    
       <NavigationContainer>
         <Navigation.Navigator screenOptions={{ headerShown: false }}>
           <Navigation.Screen name="Auth" component={AuthRoute} />

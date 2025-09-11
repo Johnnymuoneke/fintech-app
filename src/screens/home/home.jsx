@@ -20,6 +20,7 @@ import { defaultColors, defaultTextColors } from "../../components/constants"
 import { NestedButtons } from "../../components/buttons/navigationGroup"
 import { bottombtn } from "../rewards/bottomTab" 
 import { HeaderBtn } from "../rewards/bottomTab"
+import { useSelector } from "react-redux"
 
 
 // function HomeScreen() 
@@ -34,6 +35,10 @@ import { HeaderBtn } from "../rewards/bottomTab"
 
 
 function HomeScreen() {
+
+
+   const user= useSelector(state => state.userState)
+  console.log(user)
 
     return (
         <View style={{ padding: 9, backgroundColor: '#e6e6e6', flex: 1 }}>

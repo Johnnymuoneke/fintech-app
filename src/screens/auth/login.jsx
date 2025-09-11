@@ -3,11 +3,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react"
 import { View, StyleSheet, Text, TextInput, Pressable, Alert } from "react-native";
 import firestore from '@react-native-firebase/firestore'
-import {  defaultTextColors } from "../../components/constants";
+import { defaultTextColors } from "../../components/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../store/userSlice";
 
 
 
 export default function LoginScreen() {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.userState)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -15,39 +19,34 @@ export default function LoginScreen() {
 
     const handleLogin = async () => {
         setLoading(true)
-            // try {    
-            //     const userCollection = firestore().collection('users')
-            //     const querySnapshot = await userCollection
-            //         .where('email', '==', email)
-            //         .where('password', '==', password)
-            //         .get();
-            //     if (querySnapshot.empty) {
-            //         Alert.alert('Error', 'Invalid email or password');
-            //     } else {
-            //         Alert.alert('Success', 'Login successful');
-            //         navigation.navigate('Home');
-            //     }
-            // } catch (error) {
-            //     console.log(error, 'error looging in')
-            // }
-            try {
-                const userCollection= firestore().collection("users");
-                const cloneUsercollection = await userCollection
+       
+        try {
+            const userCollection = firestore().collection("users");
+            const cloneUsercollection = await userCollection
                 .where('email', '==', email)
                 .where('password', '==', password)
                 .get();
-                if(cloneUsercollection.empty){
-                    Alert.alert('invalid username or password')
-                }else {
-                    Alert.alert('login successful')
-                    navigation.navigate('Home')
-                }
-            } catch (error) {
-                Alert.alert('an error has occured')
+            if (cloneUsercollection.empty) {
+                Alert.alert('invalid username or password')
+            } else {
+                Alert.alert('login successful')
+                const data = cloneUsercollection.docs[0].data()
+                console.log(data)
+                dispatch(setUser({
+                    email: data.email,
+                    id: data.id,
+                    phoneNumber: data.phoneNumber,
+                    username: data.username
+
+                }))
+                navigation.navigate('Home')
             }
+        } catch (error) {
+            Alert.alert('an error has occured')
+        }
 
 
-       
+
     };
 
     const navigation = useNavigation()
